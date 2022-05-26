@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+
+  <title>HFT IPR Serverless</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+<script defer src="main.js"></script></head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-background-image="https://media.giphy.com/media/8vtm3YCdxtUvjTn0U3/giphy.gif">
+        <h1 class="title">IPR</h1>
+        <h3 class="title">Serverless / Cloud Functions</h3>
+      </section>
+
+      <!-- -->
+      <section>
+        <section data-auto-animate data-background-size="cover"
+          data-background-image="https://media.giphy.com/media/l4KibWpBGWchSqCRy/giphy.gif">
+          <h3 class="title">Probleme mit dem "alten" Modell</h3>
+        </section>
+        <section data-auto-animate>
+          <h3>Nachteile eines Servers</h3>
+          <ul>
+            <li class="fragment">Kosten bzw. Stromverbrauch auch wenn keine Requests eingehen</li>
+            <li class="fragment">Maintainance von Servern: Backups, Replikation, Updates, Patches</li>
+            <li class="fragment">Up- und Downscaling</li>
+            <li class="fragment">Mehr Leute / mehr Wissen notwendig: Hardware & Software</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Vorteile Function as a Service</h3>
+          <ul>
+            <li class="fragment">Code läuft nur bei Trigger</li>
+            <li class="fragment">Scalierung vom Dienstleister</li>
+            <li class="fragment">Feingranulare Kostenstruktur</li>
+            <li class="fragment">Globale Bereitstellung -> Geringere Latenz</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Dienstleister</h3>
+          <ul>
+            <li>Open FaaS</li>
+            <li>Microsoft Azure Function</li>
+            <li>Google Cloud Function</li>
+            <li>AWS Lambda</li>
+            <li>...</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Data Storage</h3>
+          <ul>
+            <li>AWS Dynamo, Aurora etc.</li>
+            <li>S3, Google Cloud Storage</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <blockquote>Lambda Funktionen sind komplett stateless!</blockquote>
+        </section>
+        <section data-auto-animate>
+          <h3>Data Trigger</h3>
+          <ul>
+            <li>SNS</li>
+            <li>S3 Events</li>
+            <li>API-Gateway</li>
+            <li>...</li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- -->
+      <section>
+        <section data-auto-animate data-background-size="cover"
+          data-background-image="https://media.giphy.com/media/GRSnxyhJnPsaQy9YLn/giphy.gif">
+          <h3 class="title">Usecases</h3>
+        </section>
+        <section data-auto-animate>
+          <h3>File processing</h3>
+          <img
+            src="https://d1.awsstatic.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-RealTimeFileProcessing.a59577de4b6471674a540b878b0b684e0249a18c.png" />
+        </section>
+        <section data-auto-animate>
+          <h3>Steam processing</h3>
+          <img
+            src="https://d1.awsstatic.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-RealTimeStreamProcessing.d79d55b5f3a5d6b58142a6c0fc8a29eadc81c02b.png" />
+        </section>
+        <section data-auto-animate>
+          <h3>Web Applications</h3>
+          <img
+            src="https://d1.awsstatic.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-WebApplications%202.c7f8cf38e12cb1daae9965ca048e10d676094dc1.png" />
+        </section>
+        <section data-auto-animate>
+          <h3>IoT Backends</h3>
+          <img
+            src="https://d1.awsstatic.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-IoTBackends.3440c7f50a9b73e6a084a242d44009dc0fbe5fab.png" />
+        </section>
+        <section data-auto-animate>
+          <h3>Mobile Backends</h3>
+          <img
+            src="https://d1.awsstatic.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-MobileBackends_option2.00f6421e67e8d6bdbc59f3a2db6fa7d7f8508073.png" />
+        </section>
+      </section>
+
+      <!-- -->
+      <section>
+        <section data-auto-animate data-background-size="cover"
+          data-background-image="https://media.giphy.com/media/LdOyjZ7io5Msw/giphy.gif">
+          <h3 class="title">Kosten (AWS)</h3>
+        </section>
+        <section data-auto-animate>
+          <h3>Duale Preisstruktur</h3>
+          <ul>
+            <li>
+              Funktions Aufruf (Function invocations)
+            </li>
+            <li>
+              Ausführungsdauer (Execution duration time)
+            </li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Funktions Aufruf</h3>
+          <p><strong>$0,0000002</strong> pro Request. Also 1 Million requests für $0,20</p>
+        </section>
+        <section data-auto-animate>
+          <h3>Ausführungsdauer</h3>
+          <p>pro 100 Millisekunden und je nach RAM. Bei 1GB sind das <strong>$0,000001667</strong>. Also bei 1 Million
+            Requests die jeweils 1 Sekunde dauern $16,67.</p>
+        </section>
+        <section data-auto-animate>
+          <h3>Pricing Beispiel: Lambda</h3>
+          <p>Wir haben eine Applikation, die 1 Million Requests pro Monat ausführt. Eine Ausführung dauert jeweils 250ms
+            und benötigt 2GB RAM:</p>
+          <ul>
+            <li>Funktions Aufrufe: 1.000.000 x $0,0000002 = $0,200</li>
+            <li>Ausführungsdauer: 1.000.000 x roundup(250/100) x $0,000003334 = $10,002</li>
+            <li>Gesamtkosten: $0,200 + $10,002 = $10,202</li>
+          </ul>
+
+        </section>
+        <section data-auto-animate>
+          <h3>Pricing Beispiel: EC2 t3a.small on demand</h3>
+          <ul>
+            <li>Kosten pro Stunde: $0,0188</li>
+            <li>Anzahl der Stunden: 30 Tage x 24 Stunden = 720</li>
+            <li>Gesamtkosten: $0,0188 x 720 Stunden = $13,536</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Pricing Beispiel: Heroku</h3>
+          <ul>
+            <li>Standard Dyno (512MB RAM): $25 pro Monat</li>
+            <li>Performance M Dyno (2.5GB RAM): $250 pro Monat</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>Pricing Beispiel: Crap Stories</h3>
+          <p>Nehmen wir an, dass die App 5000 aktive Nutzer hat. Jeder Nutzer ist 20 Minuten online und führt dabei
+            mehere Aktionen aus: ~100 requests pro User pro Tag. <br />Hobby Dyno (512MB RAM): <strong>$7 pro
+              Monat</strong></p>
+        </section>
+        <section data-auto-animate>
+          <h3>Pricing Beispiel: Crap Stories</h3>
+          <ul>
+            <li>Funktions Aufrufe: 15.500.000 x $0,0000002 = $3,10</li>
+            <li>Ausführungsdauer: 15.500.000 x roundup(250/100) x $0,0000000083 = $0,38595</li>
+            <li>Gesamtkosten: $3,10 + $0,38595 = <strong>$3,49</strong></li>
+          </ul>
+        </section>
+      </section>
+
+      <!-- -->
+      <section>
+        <section data-auto-animate data-background-size="cover"
+          data-background-image="https://media.giphy.com/media/8hMD9YakVza3452SpN/giphy.gif">
+          <h3 class="title">AWS Lambda erstellen</h3>
+        </section>
+        <section data-auto-animate>
+          <h3>Lambda Beispiel</h3>
+          <pre><code class="js" data-trim data-noescape data-line-numbers><script type="text/template">
+            exports.handler = async (event) => {
+                // TODO implement
+                const response = {
+                    statusCode: 200,
+                    body: JSON.stringify('Hello from Lambda!'),
+                };
+                return response;
+            };
+          </script></code></pre>
+        </section>
+        <section data-auto-animate>
+          <h3>Serverless framework</h3>
+          <ul>
+            <li>Unterstützt mehrere Cloud Dienstleister</li>
+            <li>Abstrahiert cloud functions deployments</li>
+            <li>yml configuration von alle notwendigen Services</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h3>serverless.yml</h3>
+          <pre><code class="js" data-trim data-noescape data-line-numbers><script type="text/template">
+            service: crap-stories-sls
+            frameworkVersion: "3"
+            
+            provider:
+              name: aws
+              runtime: nodejs16.x
+            
+            functions:
+              api:
+                handler: handler.handler
+                events:
+                  - httpApi: "*"      
+          </script></code></pre>
+        </section>
+      </section>
+
+      <!-- -->
+      <section>
+        <section data-auto-animate data-background-size="cover"
+          data-background-image="https://media.giphy.com/media/qv50XIiLWonsZG9ZNh/giphy.gif">
+          <h3 class="title">Microservice Architekturen im Web Kontext</h3>
+        </section>
+        <section data-auto-animate>
+          <h3>Mehrere APIs</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="491px"
+            height="311px" viewBox="-0.5 -0.5 491 311"
+            content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2022-05-26T13:34:21.956Z&quot; agent=&quot;5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36&quot; etag=&quot;JUTmHK-v4bowlvRfP4Dl&quot; version=&quot;17.5.0&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;ovexZXBH73j_LDeqaiXT&quot; name=&quot;Page-1&quot;&gt;3VjbcpswEP0aP7YDAhH6WNtJ25mkberJJH0UsAY1AjFC2KZf38UIA8HOZcYTJ32xtUer2zm7K9kTZ5ZuviiWJ1cyAjEhVrSZOPMJIbZLPPyqkapBfMtugFjxyDh1wIL/BQNaBi15BMXAUUspNM+HYCizDEI9wJhScj10W0oxXDVnMYyARcjEGL3lkU7MKajV4V+Bx0m7sm2ZnpS1zgYoEhbJdQ9yzifOTEmpm1a6mYGoyWt5acZdHOjdbUxBpp8zIA3X19/JNSuuft3IYmWvyH36wTd701V7YIjw/MaUSicylhkT5x06VbLMIqhntdDqfC6lzBG0EfwDWldGTFZqiVCiU2F6mzXrhQ4exUCFLFUIj+y/DQmmYtCP+Dk7wjFSQaagVYXjFAim+Wq4D2ZCJt75daxiwxD7ApLNvCsmSrPSQst6Xk/gnqeBwlZct654qGQBasXx0A+FWSdcwyJnWz7WmG1DUlmRN/G/5JtanOmSCzGTQqrtcGe5XJIwRLzQSt5DryfyAo96O11WoDRsHldmzKQZsMtbk+52myjrXvIYKOnlTYsdnftP7zzAyTMD3D1lgJNRgN9gFCPy/gPacenbCmhnbzHheEeOysl8OuIcL6G8boaV4BjjykG3J3QImmy4DHYAC+/jbY78KDVOAwYvmnSw6ZFKCRmWErKHee81mXcPRPn/RbtD6dui3XvnFZw+s4IfkOV1KvjZKUhGKlV1V4//SFvzt5lua8w3A6sy1gnEIacUh44Kzy0ECFwomWnIomPfrBEFP3L33aw+CRzvWE9F/0F9P/HF2r5cezTPcZE+zVZaFjWSlVltcI2f9ZDPP79tf24GgLxnIzm6RLGfrvsPXzl+CPtfOYFPXWodRwuXDIu+N9aCnNGxGN7LxUCz+8277ev9c+Cc/wM=&lt;/diagram&gt;&lt;/mxfile&gt;">
+            <defs />
+            <g>
+              <path d="M 40 210 L 40 230 L 40 210 L 40 223.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"
+                pointer-events="stroke" />
+              <path d="M 40 228.88 L 36.5 221.88 L 40 223.63 L 43.5 221.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="all" />
+              <rect x="0" y="130" width="80" height="80" fill="#fff2cc" stroke="#d6b656" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 170px; margin-left: 1px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Story<br />Microservice</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="40" y="174" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Story...</text>
+                </switch>
+              </g>
+              <path d="M 175 210 L 175 230 L 175 210 L 175 223.63" fill="none" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="stroke" />
+              <path d="M 175 228.88 L 171.5 221.88 L 175 223.63 L 178.5 221.88 Z" fill="rgb(0, 0, 0)"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <rect x="135" y="130" width="80" height="80" fill="#fff2cc" stroke="#d6b656" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 170px; margin-left: 136px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          User Microservice</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="175" y="174" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">User Microser...</text>
+                </switch>
+              </g>
+              <path
+                d="M 10 245 C 10 236.72 23.43 230 40 230 C 47.96 230 55.59 231.58 61.21 234.39 C 66.84 237.21 70 241.02 70 245 L 70 295 C 70 303.28 56.57 310 40 310 C 23.43 310 10 303.28 10 295 Z"
+                fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 70 245 C 70 253.28 56.57 260 40 260 C 23.43 260 10 253.28 10 245" fill="none"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 283px; margin-left: 11px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Stories<br />DB</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="40" y="286" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Stories...</text>
+                </switch>
+              </g>
+              <path
+                d="M 145 245 C 145 236.72 158.43 230 175 230 C 182.96 230 190.59 231.58 196.21 234.39 C 201.84 237.21 205 241.02 205 245 L 205 295 C 205 303.28 191.57 310 175 310 C 158.43 310 145 303.28 145 295 Z"
+                fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 205 245 C 205 253.28 191.57 260 175 260 C 158.43 260 145 253.28 145 245" fill="none"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 283px; margin-left: 146px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          User<br />DB</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="175" y="286" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">User...</text>
+                </switch>
+              </g>
+              <path d="M 110 80 L 110 105 L 40 105 L 40 123.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"
+                pointer-events="stroke" />
+              <path d="M 40 128.88 L 36.5 121.88 L 40 123.63 L 43.5 121.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 110 80 L 110 105 L 175 105 L 175 123.63" fill="none" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="stroke" />
+              <path d="M 175 128.88 L 171.5 121.88 L 175 123.63 L 178.5 121.88 Z" fill="rgb(0, 0, 0)"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <rect x="70" y="0" width="80" height="80" fill="#d5e8d4" stroke="#82b366" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 40px; margin-left: 71px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Web Frontend</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="110" y="44" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Web Frontend</text>
+                </switch>
+              </g>
+              <rect x="215" y="40" width="275" height="60" rx="9" ry="9" fill="#f8cecc" stroke="#b85450"
+                pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 273px; height: 1px; padding-top: 70px; margin-left: 216px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Das Frontend muss nun mit 2 API arbeiten</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="353" y="74" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Das Frontend muss nun mit 2 API arbeiten</text>
+                </switch>
+              </g>
+            </g>
+            <switch>
+              <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" /><a transform="translate(0,-5)"
+                xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank"><text
+                  text-anchor="middle" font-size="10px" x="50%" y="100%">Text is not SVG - cannot display</text></a>
+            </switch>
+          </svg>
+        </section>
+        <section data-auto-animate>
+          <h3>Mehrere APIs</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="216px"
+            height="501px" viewBox="-0.5 -0.5 216 501"
+            content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2022-05-26T13:36:55.086Z&quot; agent=&quot;5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36&quot; etag=&quot;CciplP4V4D3nde2h9y1a&quot; version=&quot;17.5.0&quot; type=&quot;device&quot;&gt;&lt;diagram id=&quot;ovexZXBH73j_LDeqaiXT&quot; name=&quot;Page-1&quot;&gt;3VjbcpswEP0aP7ZjEBDnsXYu7UzSNvVk0jzKsAY1gmWEbKBf38UIAyVO3akTJ31Ce7S6nd090jBis7i4VDyNrjEAObLHQTFiZyPbthzbo0+FlDUyGVs1ECoRGKcWmIufYMCxQVcigKznqBGlFmkf9DFJwNc9jCuFed9tibK/aspDGABzn8sheicCHZlTuOMW/wgijJqVrbHpiXnjbIAs4gHmHYidj9hMIeq6FRczkBV5DS/1uIsdvduNKUj0PgNiP7/5bN/w7PrbLWZra20/xO8mZm+6bA4MAZ3fmKh0hCEmXJ636FThKgmgmnVMVutzhZgSaBH4A7QuTTD5SiNBkY6l6a3XrBbaeRQDZbhSPjyx/yYluApBP+HHtoRTpgLGoFVJ4xRIrsW6vw9uUibc+rWsUsMQ+xckm3nXXK7MSnON1byepD1PF4paYdW6Fr7CDNRa0KF/D0weCQ3zlG/4yKna+qTyLK3zfymKKjjTpZByhhLVZjhbLpe27xOeaYUP0OkJvIXnetu4rEFpKJ6OzJBJM2Bbt6bc2Ymx807xGCjq1E2DHZz70zee4PaeCe4cM8HtQYLfUhYT8vYTmjnu60po9qiYCLojB3JyNh1wTpdQWjX9UgrKccXI7Q9xWNTVcLXYAtx/CDc18mWlaRoweFaXg+UeSErsvpQ4jzDvvSTzzo4s/79oZ677umg/OYaCE1mq/F6Nf+825r2ZbmOcFT2rNNYBld/dU/kt+5jS7w6K4g4WBFwoTDQkwaFVP3BhEjiPqf7EXjDvUM+YSV973COLvsXe+DPG2vcdsyMuL/RQd46iNYXQHakh677T0wpNZTQ68wr0ae+QHlWfml12BOrD10/DS/uSa8h5+c9y9QziY50+m/qQ2f6A2PR1fuOw818=&lt;/diagram&gt;&lt;/mxfile&gt;">
+            <defs />
+            <g>
+              <path d="M 40 400 L 40 420 L 40 400 L 40 413.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"
+                pointer-events="stroke" />
+              <path d="M 40 418.88 L 36.5 411.88 L 40 413.63 L 43.5 411.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="all" />
+              <rect x="0" y="320" width="80" height="80" fill="#fff2cc" stroke="#d6b656" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 360px; margin-left: 1px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Story<br />Microservice</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="40" y="364" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Story...</text>
+                </switch>
+              </g>
+              <path d="M 175 400 L 175 420 L 175 400 L 175 413.63" fill="none" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="stroke" />
+              <path d="M 175 418.88 L 171.5 411.88 L 175 413.63 L 178.5 411.88 Z" fill="rgb(0, 0, 0)"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <rect x="135" y="320" width="80" height="80" fill="#fff2cc" stroke="#d6b656" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 360px; margin-left: 136px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          User Microservice</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="175" y="364" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">User Microser...</text>
+                </switch>
+              </g>
+              <path
+                d="M 10 435 C 10 426.72 23.43 420 40 420 C 47.96 420 55.59 421.58 61.21 424.39 C 66.84 427.21 70 431.02 70 435 L 70 485 C 70 493.28 56.57 500 40 500 C 23.43 500 10 493.28 10 485 Z"
+                fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 70 435 C 70 443.28 56.57 450 40 450 C 23.43 450 10 443.28 10 435" fill="none"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 473px; margin-left: 11px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Stories<br />DB</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="40" y="476" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Stories...</text>
+                </switch>
+              </g>
+              <path
+                d="M 145 435 C 145 426.72 158.43 420 175 420 C 182.96 420 190.59 421.58 196.21 424.39 C 201.84 427.21 205 431.02 205 435 L 205 485 C 205 493.28 191.57 500 175 500 C 158.43 500 145 493.28 145 485 Z"
+                fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 205 435 C 205 443.28 191.57 450 175 450 C 158.43 450 145 443.28 145 435" fill="none"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 473px; margin-left: 146px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          User<br />DB</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="175" y="476" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">User...</text>
+                </switch>
+              </g>
+              <path d="M 110 80 L 110 133.63" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10"
+                pointer-events="stroke" />
+              <path d="M 110 138.88 L 106.5 131.88 L 110 133.63 L 113.5 131.88 Z" fill="rgb(0, 0, 0)"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <rect x="70" y="0" width="80" height="80" fill="#d5e8d4" stroke="#82b366" pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 40px; margin-left: 71px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          Web Frontend</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="110" y="44" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">Web Frontend</text>
+                </switch>
+              </g>
+              <path d="M 110 220 L 110 270 L 40 270 L 40 313.63" fill="none" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="stroke" />
+              <path d="M 40 318.88 L 36.5 311.88 L 40 313.63 L 43.5 311.88 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="all" />
+              <path d="M 110 220 L 110 270 L 175 270 L 175 313.63" fill="none" stroke="rgb(0, 0, 0)"
+                stroke-miterlimit="10" pointer-events="stroke" />
+              <path d="M 175 318.88 L 171.5 311.88 L 175 313.63 L 178.5 311.88 Z" fill="rgb(0, 0, 0)"
+                stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all" />
+              <rect x="70" y="140" width="80" height="80" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)"
+                pointer-events="all" />
+              <g transform="translate(-0.5 -0.5)">
+                <switch>
+                  <foreignObject pointer-events="none" width="100%" height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                    <div xmlns="http://www.w3.org/1999/xhtml"
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 78px; height: 1px; padding-top: 180px; margin-left: 71px;">
+                      <div data-drawio-colors="color: rgb(0, 0, 0); "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                        <div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
+                          API<br />Gateway</div>
+                      </div>
+                    </div>
+                  </foreignObject><text x="110" y="184" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px"
+                    text-anchor="middle">API...</text>
+                </switch>
+              </g>
+            </g>
+            <switch>
+              <g requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" /><a transform="translate(0,-5)"
+                xlink:href="https://www.diagrams.net/doc/faq/svg-export-text-problems" target="_blank"><text
+                  text-anchor="middle" font-size="10px" x="50%" y="100%">Text is not SVG - cannot display</text></a>
+            </switch>
+          </svg>
+        </section>
+      </section>
+
+      <section>
+        <h3>Links</h3>
+        <ul>
+          <li>
+            <a href="https://www.serverless.com/">Serverless</a>
+          </li>
+          <li>
+            <a href="https://www.openfaas.com/">Open FaaS</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+
+</html>
